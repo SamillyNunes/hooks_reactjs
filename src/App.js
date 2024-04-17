@@ -1,14 +1,18 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useCallback } from "react";
 
 function App(){
   const [tasks, setTasks] = useState([]);
   const [input, setInput] = useState('');
 
-  function handleAdd(){
+
+  // A diferenca entre uma funcao e o useCallback eh a otimizacao do desempenho, ja que 
+  // quando eh uma funcao, dentro da funcao app, ela sera criada toda vez que App for rebuildado,
+  // e no caso do callback apenas quando for necessario/usado
+  const  handleAdd = useCallback(()=>{
 
     setTasks([...tasks, input]);
     setInput('');
-  }
+  }, [tasks, input]);
 
   // Quando a gente deixa o paramatro de observacao (segundO) vazio, ele vai executar isso
   // assim que montar a tela
