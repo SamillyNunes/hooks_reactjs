@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 
 function App(){
   const [tasks, setTasks] = useState([]);
@@ -29,6 +29,10 @@ function App(){
   }, [tasks]);
 
 
+  // useMemo soh vai computar o valor (tasksTotal) quando tiver uma atualizacao no estado de tasks
+  const tasksTotal = useMemo(()=> tasks.length, [tasks]);
+
+
   return (
     <div>
       <h1> React Hooks</h1>
@@ -37,6 +41,12 @@ function App(){
             <li key={task}> { task } </li> 
         )}
       </ul>
+      <br/>
+
+      <strong> Você tem {tasksTotal} tarefas! </strong>
+      <br/>
+      <br/>
+
       <input type="text" value={input} onChange={(e)=> setInput(e.target.value)} />
       <button type="button" onClick={handleAdd} >Adicionar</button>
     </div>
